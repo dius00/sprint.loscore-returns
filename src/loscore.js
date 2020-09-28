@@ -9,13 +9,7 @@ class LoScore {
   |~~~~~~~~~~
   * */
   uniq(array) {
-    const result = [];
-    for (const element of array) {
-      if (result.includes(element) === false) {
-        result.push(element);
-      }
-    }
-    return result;
+    return [...new Set(array)];
   }
 
   /**
@@ -37,36 +31,34 @@ class LoScore {
 
   map(collection, iteratee) {
     const array = [];
-    this.each(collection, (...args) => array.push(iteratee(args[0])));
+    this.each(collection, (value) => array.push(iteratee(value)));
     return array;
   }
 
   filter(collection, test) {
     const result = [];
-    this.each(collection, (val) => test(val) && result.push(val));
+    this.each(collection, (value) => test(value) && result.push(value));
     return result;
   }
 
   reject(collection, test) {
-    return this.filter(collection, (...args) => !test(args[0]));
+    return this.filter(collection, (value) => !test(value));
   }
 
   reduce(collection, iterator, accumulator) {
-    let result = 0;
     if (accumulator === undefined) {
-      result = collection[0];
+      accumulator = collection[0];
       this.each(collection, (item, index) => {
         if (index > 0) {
-          result = iterator(result, item);
+          accumulator = iterator(accumulator, item);
         }
       });
     } else {
-      result = accumulator;
       this.each(collection, (item) => {
-        result = iterator(result, item);
+        accumulator = iterator(accumulator, item);
       });
     }
-    return result;
+    return accumulator;
   }
 
   every(collection, test) {
@@ -132,7 +124,7 @@ class LoScore {
 
   invoke(collection, functionOrKey) {
     if (typeof functionOrKey === "string") {
-      return this.map(collection, (value) => value[functionOrKey].apply(value));
+      return this.map(collection, (value) => value[functionOrKey]());
     } else if (typeof functionOrKey === "function") {
       return this.map(collection, (value) => functionOrKey.apply(value));
     }
@@ -143,12 +135,20 @@ class LoScore {
   |~~~~~~~~~~~~~
   * */
 
-  sortBy() {
+  sortBy(original, func) {
     // YOUR CODE HERE
   }
 
-  zip() {
-    // YOUR CODE HREE
+  zip(arrayList) {
+    let zippedArr = [];
+    for (let i = 0; i < arrayList[0].length; i++) {
+      let temp = [];
+      for (let array of arrayList) {
+        temp.push(array[i]);
+      }
+      zippedArr.push(temp);
+    }
+    return zippedArr;
   }
 
   delay() {

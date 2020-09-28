@@ -728,13 +728,19 @@ describe("LoScore", () => {
       let array, arrayOfStrings;
 
       beforeEach(() => {
-        array = [[5, 1, 7], [3, 2, 1]];
+        array = [
+          [5, 1, 7],
+          [3, 2, 1],
+        ];
         arrayOfStrings = ["yan", "kani"];
       });
 
       it("should be able to invoke methods on values and return in an array", () => {
         const sorted = _.invoke(array, "sort");
-        expect(sorted).to.eql([[1, 5, 7], [1, 2, 3]]);
+        expect(sorted).to.eql([
+          [1, 5, 7],
+          [1, 2, 3],
+        ]);
         expect(_.invoke(arrayOfStrings, "toUpperCase")).to.eql(["YAN", "KANI"]);
       });
 
@@ -747,6 +753,50 @@ describe("LoScore", () => {
 
         const reversedStrings = _.invoke(["yan", "fan"], reverse);
         expect(reversedStrings).to.eql(["nay", "naf"]);
+      });
+    });
+
+    describe("zip", () => {
+      let test = [
+        ["moe", "larry", "curly"],
+        [30, 40, 50],
+        [true, false, false],
+      ];
+      it("should return a new array", () => {
+        let zipped = _.zip(test);
+        expect(Array.isArray(zipped)).to.be.true;
+      });
+      it("Merges together the values of each of the arrays with the values at the corresponding position.", () => {
+        let result = [
+          ["moe", 30, true],
+          ["larry", 40, false],
+          ["curly", 50, false],
+        ];
+        let zipped = _.zip(test);
+        expect(zipped).to.be.eql(result);
+      });
+    });
+    describe("sortby", () => {
+      it.only("should return a new array", () => {
+        expect(
+          _.sortBy([1, 2, 3, 4, 5, 6], function(num) {
+            return Math.sin(num);
+          })
+        ).to.be.eql([5, 4, 6, 3, 1, 2]);
+      });
+      it.only("Merges together the values of each of the arrays with the values at the corresponding position.", () => {
+        var stooges = [
+          { name: "moe", age: 40 },
+          { name: "larry", age: 50 },
+          { name: "curly", age: 60 },
+        ];
+        let test = _.sortBy(stooges, "name");
+        let result = [
+          { name: "curly", age: 60 },
+          { name: "larry", age: 50 },
+          { name: "moe", age: 40 },
+        ];
+        expect(test).to.be.eql(result);
       });
     });
   });
