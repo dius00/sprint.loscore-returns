@@ -776,28 +776,5 @@ describe("LoScore", () => {
         expect(zipped).to.be.eql(result);
       });
     });
-    describe("sortby", () => {
-      it.only("should return a new array", () => {
-        expect(
-          _.sortBy([1, 2, 3, 4, 5, 6], function(num) {
-            return Math.sin(num);
-          })
-        ).to.be.eql([5, 4, 6, 3, 1, 2]);
-      });
-      it.only("Merges together the values of each of the arrays with the values at the corresponding position.", () => {
-        var stooges = [
-          { name: "moe", age: 40 },
-          { name: "larry", age: 50 },
-          { name: "curly", age: 60 },
-        ];
-        let test = _.sortBy(stooges, "name");
-        let result = [
-          { name: "curly", age: 60 },
-          { name: "larry", age: 50 },
-          { name: "moe", age: 40 },
-        ];
-        expect(test).to.be.eql(result);
-      });
-    });
   });
 });
