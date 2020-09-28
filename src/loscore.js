@@ -9,7 +9,7 @@ class LoScore {
   |~~~~~~~~~~
   * */
   uniq(array) {
-    let result = [];
+    const result = [];
     for (const element of array) {
       if (result.includes(element) === false) {
         result.push(element);
@@ -36,7 +36,7 @@ class LoScore {
   }
 
   map(collection, iteratee) {
-    let array = [];
+    const array = [];
     this.each(collection, (...args) => array.push(iteratee(args[0])));
     return array;
   }
@@ -114,21 +114,19 @@ class LoScore {
         result = func(args);
         FirstRun = false;
         return result;
-      } else {
-        return result;
       }
+      return result;
     };
   }
 
   memoize(func) {
-    let cache = {};
+    const cache = {};
     return function(...input) {
       if (!cache[input]) {
         cache[input] = func(input);
         return cache[input];
-      } else {
-        return cache[input];
       }
+      return cache[input];
     };
   }
 
