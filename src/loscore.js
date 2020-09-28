@@ -9,7 +9,13 @@ class LoScore {
   |~~~~~~~~~~
   * */
   uniq(array) {
-    // YOUR CODE HERE
+    let result = [];
+    for (const element of array) {
+      if (result.includes(element) === false) {
+        result.push(element);
+      }
+    }
+    return result;
   }
 
   /**
@@ -30,7 +36,9 @@ class LoScore {
   }
 
   map(collection, iteratee) {
-    // YOUR CODE HERE
+    let array = [];
+    this.each(collection, (...args) => array.push(iteratee(args[0])));
+    return array;
   }
 
   filter(collection, test) {
@@ -39,10 +47,26 @@ class LoScore {
     return result;
   }
 
-  reject(collection, test) {}
+  reject(collection, test) {
+    return this.filter(collection, (...args) => !test(args[0]));
+  }
 
   reduce(collection, iterator, accumulator) {
-    // YOUR CODE HERE
+    let result = 0;
+    if (accumulator === undefined) {
+      result = collection[0];
+      this.each(collection, (item, index) => {
+        if (index > 0) {
+          result = iterator(result, item);
+        }
+      });
+    } else {
+      result = accumulator;
+      this.each(collection, (item) => {
+        result = iterator(result, item);
+      });
+    }
+    return result;
   }
 
   every() {
