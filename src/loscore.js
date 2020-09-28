@@ -135,15 +135,15 @@ class LoScore {
   |~~~~~~~~~~~~~
   * */
 
-  sortBy(original, func) {
+  sortBy() {
     // YOUR CODE HERE
   }
 
   zip(arrayList) {
-    let zippedArr = [];
+    const zippedArr = [];
     for (let i = 0; i < arrayList[0].length; i++) {
-      let temp = [];
-      for (let array of arrayList) {
+      const temp = [];
+      for (const array of arrayList) {
         temp.push(array[i]);
       }
       zippedArr.push(temp);
