@@ -121,11 +121,23 @@ class LoScore {
   }
 
   memoize(func) {
-    // YOUR CODE HERE
+    let cache = {};
+    return function(...input) {
+      if (!cache[input]) {
+        cache[input] = func(input);
+        return cache[input];
+      } else {
+        return cache[input];
+      }
+    };
   }
 
   invoke(collection, functionOrKey) {
-    // YOUR CODE HERE
+    if (typeof functionOrKey === "string") {
+      return this.map(collection, (value) => value[functionOrKey].apply(value));
+    } else if (typeof functionOrKey === "function") {
+      return this.map(collection, (value) => functionOrKey.apply(value));
+    }
   }
 
   /**
